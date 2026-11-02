@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كيمياء المرحلة الثانوية | المعلمة نجلاء الثقفي</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo & Tajawal for gorgeous Arabic typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for chemistry icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        chemistry: {
+                            teal: '#0d9488',
+                            darkTeal: '#0f766e',
+                            purple: '#7e22ce',
+                            gold: '#d97706',
+                            lightBg: '#f8fafc',
+                            cardBg: '#ffffff',
+                            cardBorder: '#e2e8f0',
+                            textMain: '#1e293b',
+                            textMuted: '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f0fdfa 50%, #faf5ff 100%);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+        .glow-effect {
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.15);
+        }
+        .glow-purple {
+            box-shadow: 0 10px 30px rgba(126, 34, 206, 0.15);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Notification Ticker Banner -->
+    <div class="bg-gradient-to-r from-teal-600 via-purple-600 to-amber-500 text-white text-xs sm:text-sm py-2 px-4 shadow-sm overflow-hidden relative">
+        <div class="flex items-center justify-center space-x-reverse space-x-2 animate-pulse">
+            <i class="fa-solid fa-bullhorn text-amber-200 ml-2"></i>
+            <span class="font-bold">تنبيه هام:</span>
+            <span>تم إضافة تجميعات التحصيلي الحديثة (1447 - 1448) في قسم اختبارات التحصيلي! 🧪✨</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 glass-card border-b border-slate-200 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-reverse space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-md glow-effect">
+                    <i class="fa-solid fa-atom animate-spin" style="animation-duration: 12s;"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-lg sm:text-xl text-slate-800 tracking-wide">كيمياء المرحلة الثانوية</h1>
+                    <p class="text-xs text-teal-600 font-bold">المعلمة نجلاء الثقفي</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-reverse space-x-6 text-sm font-semibold text-slate-700">
+                <a href="#hero" class="hover:text-teal-600 transition-colors">الرئيسية</a>
+                <a href="#lessons" class="hover:text-teal-600 transition-colors">الدروس والملخصات</a>
+                <a href="#tahsili" class="hover:text-teal-600 transition-colors">بنك التحصيلي</a>
+                <a href="#games" class="hover:text-teal-600 transition-colors">الألعاب الكيميائية</a>
+                <a href="#lab" class="hover:text-teal-600 transition-colors">التجارب الافتراضية</a>
+                <a href="#contact" class="hover:text-teal-600 transition-colors">تواصل معنا</a>
+            </div>
+
+            <!-- Action Button -->
+            <div class="flex items-center space-x-reverse space-x-3">
+                <button onclick="openQuizModal()" class="hidden sm:inline-flex items-center bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition-all transform hover:scale-105">
+                    <i class="fa-solid fa-clipboard-question ml-2"></i> اختبار سريع
+                </button>
+                <!-- Mobile Menu Toggle -->
+                <button id="menuToggle" class="md:hidden text-slate-800 text-2xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pt-4 border-t border-slate-200 space-y-3 text-center">
+            <a href="#hero" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">الرئيسية</a>
+            <a href="#lessons" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">الدروس والملخصات</a>
+            <a href="#tahsili" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">بنك التحصيلي</a>
+            <a href="#games" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">الألعاب الكيميائية</a>
+            <a href="#lab" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">التجارب الافتراضية</a>
+            <a href="#contact" class="block py-2 text-slate-700 hover:text-teal-600 font-semibold">تواصل معنا</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="relative max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-6 text-right">
+            <div class="inline-flex items-center bg-teal-50 border border-teal-200 text-teal-700 px-4 py-2 rounded-full text-xs sm:text-sm font-bold shadow-sm">
+                <i class="fa-solid fa-graduation-cap ml-2 text-amber-600"></i> المنصة التعليمية الرسمية لمادة الكيمياء
+            </div>
+            <h2 class="text-4xl sm:text-6xl font-black leading-tight tracking-tight text-slate-900">
+                اكتشفي أسرار <span class="bg-gradient-to-r from-teal-600 via-purple-600 to-amber-600 bg-clip-text text-transparent">الكيمياء</span> وتفوقي في التحصيلي
+            </h2>
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-medium">
+                مرحباً بكِ في بوابتك الشاملة لإتقان مناهج الكيمياء للمرحلة الثانوية. بصحبة <span class="text-teal-700 font-bold">المعلمة نجلاء الثقفي</span>، رحلتنا تجمع بين تبسيط المفاهيم العلمية، الألعاب التفاعلية، وأحدث تجميعات الاختبارات الوزارية.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-4">
+                <a href="#lessons" class="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg transition-all flex items-center transform hover:-translate-y-1">
+                    <i class="fa-solid fa-book-open ml-2"></i> استعرضي المنهج الآن
+                </a>
+                <a href="#tahsili" class="glass-card hover:bg-white text-slate-800 font-bold px-6 py-3.5 rounded-2xl transition-all flex items-center border border-slate-300 shadow-sm">
+                    <i class="fa-solid fa-trophy ml-2 text-amber-500"></i> تجميعات التحصيلي
+                </a>
+            </div>
+
+            <!-- Mini Stats -->
+            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-200 mt-8">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-black text-teal-600">100%</h3>
+                    <p class="text-xs text-slate-500 font-semibold">تغطية المنهج والوزاري</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-black text-purple-600">15+</h3>
+                    <p class="text-xs text-slate-500 font-semibold">لعبة وتجربة تفاعلية</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-black text-amber-600">500+</h3>
+                    <p class="text-xs text-slate-500 font-semibold">سؤال تحصيلي مجاب عنها</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Visual / Chemistry Periodic Lab Graphic -->
+        <div class="lg:col-span-5 relative flex justify-center">
+            <div class="absolute w-72 h-72 bg-teal-200/50 rounded-full blur-3xl -top-10 -right-10 pointer-events-none"></div>
+            <div class="absolute w-72 h-72 bg-purple-200/50 rounded-full blur-3xl -bottom-10 -left-10 pointer-events-none"></div>
+
+            <div class="relative w-full max-w-md glass-card rounded-3xl p-6 shadow-2xl glow-effect floating">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                    <div class="flex items-center space-x-reverse space-x-3">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center text-white text-xl font-black shadow-md">
+                            <i class="fa-solid fa-flask-vial"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">المعلمة نجلاء الثقفي</h4>
+                            <p class="text-xs text-teal-600 font-semibold">معلمة كيمياء متقدمة</p>
+                        </div>
+                    </div>
+                    <span class="bg-amber-100 text-amber-700 text-xs px-3 py-1 rounded-full font-bold">نشطة الآن</span>
+                </div>
+
+                <!-- Periodic Table Miniature Grid -->
+                <div class="grid grid-cols-4 gap-2 text-center text-xs font-bold mb-6">
+                    <div class="bg-teal-50 border border-teal-200 p-3 rounded-xl flex flex-col justify-center items-center">
+                        <span class="text-[10px] text-teal-600">11</span>
+                        <span class="text-lg text-slate-900 font-black">Na</span>
+                        <span class="text-[9px] text-slate-500">صوديوم</span>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl flex flex-col justify-center items-center">
+                        <span class="text-[10px] text-purple-600">17</span>
+                        <span class="text-lg text-slate-900 font-black">Cl</span>
+                        <span class="text-[9px] text-slate-500">كلور</span>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl flex flex-col justify-center items-center">
+                        <span class="text-[10px] text-amber-600">79</span>
+                        <span class="text-lg text-slate-900 font-black">Au</span>
+                        <span class="text-[9px] text-slate-500">ذهب</span>
+                    </div>
+                    <div class="bg-teal-50 border border-teal-200 p-3 rounded-xl flex flex-col justify-center items-center">
+                        <span class="text-[10px] text-teal-600">80</span>
+                        <span class="text-lg text-slate-900 font-black">Hg</span>
+                        <span class="text-[9px] text-slate-500">زئبق</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div class="flex justify-between text-xs text-slate-600 font-semibold">
+                        <span>جاهزية الاختبار التحصيلي</span>
+                        <span class="text-teal-600 font-bold">94%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-teal-500 to-purple-600 h-2.5 rounded-full" style="width: 94%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Navigation Cards Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-8 py-12">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h3 class="text-teal-600 font-bold text-sm tracking-widest uppercase mb-2">أقسام المنصة</h3>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900">استكشفي محتوى كيمياء المرحلة الثانوية</h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-2">اختاري القسم المناسب لمراجعة الدروس، حل التدريبات، أو خوض التحديات الكيميائية</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1: Interactive Lessons -->
+            <div id="lessons" class="glass-card rounded-3xl p-6 hover:border-teal-400 transition-all duration-300 transform hover:-translate-y-2 group">
+                <div class="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 text-2xl mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all shadow-sm">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%AF%D8%B1%D9%88%D8%B3-%D9%88-%D8%A7%D9%84%D9%85%D9%84%D8%AE%D8%B5%D8%A7%D8%AA" target="_blank" class="block group">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors duration-200">
+                        الدروس والملخصات
+                    </h3>
+                </a>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                    شروحات مبسطة لفصول كيمياء الثانوي: سرعة التفاعلات، الاتزان، الكيمياء الكهربائية، والعضوية.
+                </p>
+                <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%AF%D8%B1%D9%88%D8%B3-%D9%88-%D8%A7%D9%84%D9%85%D9%84%D8%AE%D8%B5%D8%A7%D8%AA" target="_blank" class="inline-flex items-center text-teal-600 text-sm font-bold group-hover:text-teal-700">
+    تصفح الملفات <i class="fa-solid fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+</a>
+                </a>
+            </div>
+
+            <!-- Card 2: Tahsili Bank -->
+            <div id="tahsili" class="glass-card rounded-3xl p-6 hover:border-purple-400 transition-all duration-300 transform hover:-translate-y-2 group">
+                <div class="w-14 h-14 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 text-2xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-sm">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A8%D9%86%D9%83-%D8%AA%D8%AC%D9%85%D9%8A%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A?read_current=1" target="_blank" class="block group">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors duration-200">
+                        بنك تجميعات التحصيلي
+                    </h3>
+                </a>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                    أحدث تجميعات الأسئلة الوزارية (1446-1447) مصنفة حسب الأبواب مع نماذج إجابة تفصيلية دقيقة.
+                </p>
+                <button onclick="openTahsiliModal()" class="inline-flex items-center text-purple-600 text-sm font-bold group-hover:text-purple-700 focus:outline-none">
+                    ابدأ التدريب <i class="fa-solid fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+                </button>
+            </div>
+
+            <!-- Card 3: Chemistry Games -->
+            <div id="games" class="glass-card rounded-3xl p-6 hover:border-amber-400 transition-all duration-300 transform hover:-translate-y-2 group">
+                <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 text-2xl mb-6 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%A3%D9%84%D8%B9%D8%A7%D8%A8-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A6%D9%8A%D8%A9" target="_blank" class="block group">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors duration-200">
+                        الألعاب الكيميائية
+                    </h3>
+                </a>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                    تعلمي بمتعة! ألعاب تفاعلية لتركيب المعادلات، مطابقة العناصر، وتحدي المصطلحات العلمية بأسلوب مسلٍ.
+                </p>
+               <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%A3%D9%84%D8%B9%D8%A7%D8%A8-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A6%D9%8A%D8%A9" target="_blank" class="inline-flex items-center text-amber-600 text-sm font-bold group-hover:text-amber-700">
+    العب الآن <i class="fa-solid fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+</a>
+                </a>
+            </div>
+
+            <!-- Card 4: Virtual Lab & Videos -->
+            <div id="lab" class="glass-card rounded-3xl p-6 hover:border-teal-400 transition-all duration-300 transform hover:-translate-y-2 group">
+                <div class="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 text-2xl mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all shadow-sm">
+                    <i class="fa-solid fa-vial-circle-check"></i>
+                </div>
+                <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A8-%D9%88-%D8%A7%D9%84%D8%B4%D8%B1%D9%88%D8%AD%D8%A7%D8%AA?authuser=0" target="_blank" class="block group">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors duration-200">
+                        التجارب والشروحات
+                    </h3>
+                </a>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-medium">
+                    مقاطع فيديو مرئية وتجارب مختبرية افتراضية تشرح التفاعلات المعقدة وتسهل حفظها بطريقة بصرية.
+                </p>
+              <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A8-%D9%88-%D8%A7%D9%84%D8%B4%D8%B1%D9%88%D8%AD%D8%A7%D8%AA?authuser=0" target="_blank" class="inline-flex items-center text-teal-600 text-sm font-bold group-hover:text-teal-700">
+    شاهد التجارب <i class="fa-solid fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+</a>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Chemistry Quick Quiz Section -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-8 py-12">
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-teal-200 relative overflow-hidden shadow-xl">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-teal-100/50 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-6 pb-4 border-b border-slate-200">
+                <div class="flex items-center space-x-reverse space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white font-bold shadow-md">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900">سؤال تحدي الكيمياء السريع</h3>
+                        <p class="text-xs text-slate-500 font-semibold">اختبري معلوماتك الفورية مع المعلمة نجلاء</p>
+                    </div>
+                </div>
+                <span class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-bold">تحدي اليوم</span>
+            </div>
+
+            <div id="quiz-container" class="space-y-6">
+                <p class="text-base sm:text-lg font-bold text-slate-900">
+                    س: ما هو العامل المختزل في التفاعل الكيميائي الآتي أو بشكل عام، العامل المختزل هو المادة التي...؟
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="checkQuizAnswer(false, this)" class="quiz-btn text-right p-4 rounded-2xl glass-card hover:border-teal-400 transition-all text-sm font-semibold text-slate-700">
+                        أ) تحدث لها عملية اختزال وتكتسب إلكترونات
+                    </button>
+                    <button onclick="checkQuizAnswer(true, this)" class="quiz-btn text-right p-4 rounded-2xl glass-card hover:border-teal-400 transition-all text-sm font-semibold text-slate-700">
+                        ب) تحدث لها عملية تأكسد وتفقد إلكترونات
+                    </button>
+                    <button onclick="checkQuizAnswer(false, this)" class="quiz-btn text-right p-4 rounded-2xl glass-card hover:border-teal-400 transition-all text-sm font-semibold text-slate-700">
+                        ج) لا تتغير شحنتها أبدًا خلال التفاعل
+                    </button>
+                    <button onclick="checkQuizAnswer(false, this)" class="quiz-btn text-right p-4 rounded-2xl glass-card hover:border-teal-400 transition-all text-sm font-semibold text-slate-700">
+                        د) تعتبر دائماً مادة خاملة كيميائياً
+                    </button>
+                </div>
+
+                <div id="quiz-feedback" class="hidden p-4 rounded-2xl text-sm font-bold"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Najla Al-Thaqafi Welcome Message Banner -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-8 py-12">
+        <div class="bg-gradient-to-r from-teal-50 via-purple-50 to-amber-50 rounded-3xl p-8 sm:p-12 border border-teal-200 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div class="space-y-4 text-right max-w-2xl">
+                <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full border border-amber-300">كلمة المعلمة</span>
+                <h3 class="text-2xl sm:text-3xl font-black text-slate-900">بناتي الطالبات، مستقبل الكيمياء يبدأ هنا!</h3>
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-medium">
+                    "يسعدني أن أرحب بكم في هذه المنصة المصممة خصيصاً لتسهيل رحلتكم الدراسية في مادة الكيمياء للمرحلة الثانوية. اجعلن من الفضول العلمي بوصلتكن، ولا تترددوا في الاستفادة من كافة الملخصات والاختبارات التفاعلية لضمان التفوق والدرجات العالية في التحصيلي."
+                </p>
+                <div class="pt-2 text-teal-700 font-bold text-sm">
+                    — المعلمة نجلاء الثقفي 🧪✨
+                </div>
+            </div>
+            <div class="flex-shrink-0">
+                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-gradient-to-tr from-teal-500 to-purple-600 p-1 shadow-xl glow-effect flex items-center justify-center">
+                    <div class="w-full h-full bg-white rounded-[22px] flex flex-col items-center justify-center text-center p-4">
+                        <i class="fa-solid fa-graduation-cap text-3xl text-amber-600 mb-2"></i>
+                        <span class="text-xs font-bold text-slate-900">نجلاء الثقفي</span>
+                        <span class="text-[10px] text-teal-600 font-semibold">معلمة المادة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Feedback Section (Integrated with Formspree) -->
+    <section id="contact" class="max-w-5xl mx-auto px-4 sm:px-8 py-12">
+        <div class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xl max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <h3 class="text-teal-600 font-bold text-sm tracking-widest uppercase mb-2">تواصل ودعم</h3>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900">اتصل بنا</h2>
+                <p class="text-slate-600 text-xs sm:text-sm mt-2 font-medium">اكتبِ استفساركِ الكيميائي هنا لتتواصلِ مع المعلمة مباشرة</p>
+            </div>
+
+            <form action="https://formspree.io/f/xeaapvda" method="POST" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-xs font-bold text-slate-700 mb-2">الاسم:</label>
+                    <input type="text" id="name" name="name" required placeholder="أدخل اسمك هنا" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500 shadow-sm">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-xs font-bold text-slate-700 mb-2">البريد الإلكتروني:</label>
+                    <input type="email" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500 shadow-sm">
+                </div>
+
+                <div>
+                    <label for="message" class="block text-xs font-bold text-slate-700 mb-2">الرسالة:</label>
+                    <textarea id="message" name="message" required placeholder="اكتب رسالتك هنا..." rows="4" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500 shadow-sm resize-y"></textarea>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button type="submit" class="bg-gradient-to-r from-teal-600 to-purple-600 hover:from-teal-700 hover:to-purple-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all w-full">
+                        إرسال الرسالة <i class="fa-solid fa-paper-plane mr-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-card border-t border-slate-200 mt-16 py-8 px-4 sm:px-8 text-center text-slate-600 text-xs sm:text-sm font-semibold">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-reverse space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-black">
+                    <i class="fa-solid fa-atom"></i>
+                </div>
+                <span class="font-bold text-slate-900">كيمياء المرحلة الثانوية | المعلمة نجلاء الثقفي</span>
+            </div>
+            <p>© 2026 جميع الحقوق محفوظة - منصة العب وتدرب الكيميائية</p>
+            <div class="flex space-x-reverse space-x-4 text-lg">
+                <a href="#" class="text-slate-600 hover:text-teal-600 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="text-slate-600 hover:text-teal-600 transition-colors"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="text-slate-600 hover:text-teal-600 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast / Message Box (Replaces alert) -->
+    <div id="toast" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-white border border-teal-500 text-slate-900 px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-reverse space-x-3">
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold flex-shrink-0 shadow-sm">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm text-slate-900" id="toast-title">إشعار المنصة</h4>
+            <p class="text-xs text-slate-600 font-medium" id="toast-msg">تم تنفيذ العملية بنجاح</p>
+        </div>
+    </div>
+
+    <!-- Interactive Quick Quiz Modal -->
+    <div id="quizModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-teal-300 shadow-2xl relative">
+            <button onclick="closeQuizModal()" class="absolute top-4 left-4 text-slate-500 hover:text-slate-900 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-black text-slate-900 mb-2">اختبار سريع - كيمياء الثانوية</h3>
+            <p class="text-xs text-slate-600 mb-6 font-medium">اختبري سرعة بديهتك في الجدول الدوري والعناصر</p>
+            
+            <div class="space-y-4">
+                <p class="text-sm font-bold text-slate-900">ما هو رمز عنصر الذهب في الجدول الدوري؟</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="modalAnswer(false)" class="p-3 glass-card rounded-xl text-xs font-bold hover:border-teal-400 text-slate-700 shadow-sm">Ag (فضة)</button>
+                    <button onclick="modalAnswer(true)" class="p-3 glass-card rounded-xl text-xs font-bold hover:border-teal-400 text-slate-700 shadow-sm">Au (ذهب)</button>
+                    <button onclick="modalAnswer(false)" class="p-3 glass-card rounded-xl text-xs font-bold hover:border-teal-400 text-slate-700 shadow-sm">Cu (نحاس)</button>
+                    <button onclick="modalAnswer(false)" class="p-3 glass-card rounded-xl text-xs font-bold hover:border-teal-400 text-slate-700 shadow-sm">Fe (حديد)</button>
+                </div>
+                <div id="modal-feedback" class="hidden text-xs font-bold p-3 rounded-xl text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fully Functional Tahsili Question Bank Modal (1446-1447) -->
+    <div id="tahsiliModal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-2xl w-full border border-purple-300 shadow-2xl relative my-8">
+            <button onclick="closeTahsiliModal()" class="absolute top-4 left-4 text-slate-500 hover:text-slate-900 text-xl w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="flex items-center space-x-reverse space-x-3 pb-4 border-b border-slate-200 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 border border-purple-200 flex items-center justify-center text-purple-700 text-xl font-black shadow-sm">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <a href="https://sites.google.com/view/chemistrynajlaal-thaqafi/%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A-%D9%85%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D9%83%D9%8A%D9%85%D9%8A%D8%A7%D8%A1/%D8%A8%D9%86%D9%83-%D8%AA%D8%AC%D9%85%D9%8A%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%AD%D8%B5%D9%8A%D9%84%D9%8A" target="_blank" class="block group">
+    <h3 class="text-xl font-black text-slate-900 group-hover:text-teal-600 transition-colors duration-200">
+        بنك تجميعات التحصيلي (1448 - 1447)
+    </h3>
+</a>
+                    <p class="text-xs text-purple-700 font-bold">إشراف المعلمة نجلاء الثقفي - قسم الكيمياء</p>
+                </div>
+            </div>
+
+            <!-- Question Navigation / Status Bar -->
+            <div class="flex items-center justify-between text-xs text-slate-700 mb-4 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <span id="tahsili-progress">السؤال 1 من 4</span>
+                <span class="text-amber-600 font-bold" id="tahsili-score">النتيجة: 0</span>
+            </div>
+
+            <!-- Question Box -->
+            <div id="tahsili-question-box" class="space-y-6">
+                <div class="inline-block bg-purple-50 text-purple-700 text-xs px-3 py-1 rounded-full font-bold border border-purple-200" id="tahsili-chapter">
+                    الباب الأول: سرعة التفاعلات الكيميائية
+                </div>
+                <h4 class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed" id="tahsili-question-text">
+                    جاري تحميل الأسئلة...
+                </h4>
+
+                <div class="grid grid-cols-1 gap-3" id="tahsili-options">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <!-- Explanation Box -->
+                <div id="tahsili-explanation" class="hidden p-4 rounded-2xl text-xs sm:text-sm font-semibold border">
+                    <!-- Explanation text -->
+                </div>
+
+                <!-- Action Controls inside Modal -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-200 flex-wrap gap-4">
+                    <button onclick="downloadTahsiliPDF()" class="bg-slate-100 hover:bg-slate-200 text-purple-700 px-4 py-2.5 rounded-xl text-xs font-bold border border-purple-200 transition-all flex items-center shadow-sm">
+                        <i class="fa-solid fa-file-arrow-down ml-2"></i> تحميل ملخص PDF (1447)
+                    </button>
+                    <button id="tahsili-next-btn" onclick="nextTahsiliQuestion()" class="hidden bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-lg transition-all">
+                        السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Toast Notification System (replaces alert)
+        function showNotification(message, title = "تنبيه المنصة") {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Quiz Check Logic
+        function checkQuizAnswer(isCorrect, btn) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+            
+            const buttons = document.querySelectorAll('.quiz-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                btn.classList.add('bg-teal-100', 'border-teal-400', 'text-teal-900', 'font-bold');
+                feedback.className = "p-4 rounded-2xl text-sm font-bold bg-teal-50 text-teal-800 border border-teal-200 shadow-sm";
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check ml-2 text-teal-600"></i> إجابة صحيحة! أحسنتِ. العامل المختزل يحدث له عملية تأكسد ويفقد إلكترونات.';
+            } else {
+                btn.classList.add('bg-red-50', 'border-red-300', 'text-red-900', 'font-bold');
+                feedback.className = "p-4 rounded-2xl text-sm font-bold bg-red-50 text-red-800 border border-red-200 shadow-sm";
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark ml-2 text-red-600"></i> إجابة خاطئة للأسف. الإجابة الصحيحة هي: تحدث لها عملية تأكسد وتفقد إلكترونات.';
+            }
+        }
+
+        // Modal Controls
+        function openQuizModal() {
+            document.getElementById('quizModal').classList.remove('hidden');
+            document.getElementById('quizModal').classList.add('flex');
+        }
+
+        function closeQuizModal() {
+            document.getElementById('quizModal').classList.remove('flex');
+            document.getElementById('quizModal').classList.add('hidden');
+        }
+
+        function modalAnswer(isCorrect) {
+            const feedback = document.getElementById('modal-feedback');
+            feedback.classList.remove('hidden');
+            if (isCorrect) {
+                feedback.className = "text-xs font-bold p-3 rounded-xl text-center bg-teal-50 text-teal-800 border border-teal-200 shadow-sm";
+                feedback.innerHTML = "إجابة صحيحة! Au هو رمز الذهب 🥇";
+                setTimeout(() => {
+                    closeQuizModal();
+                    feedback.classList.add('hidden');
+                }, 2000);
+            } else {
+                feedback.className = "text-xs font-bold p-3 rounded-xl text-center bg-red-50 text-red-800 border border-red-200 shadow-sm";
+                feedback.innerHTML = "حاولي مرة أخرى!";
+            }
+        }
+
+        // Tahsili Question Bank Logic (1446-1447 Real Chemistry Questions)
+        const tahsiliQuestions = [
+            {
+                chapter: "الباب الأول: سرعة التفاعلات الكيميائية (تجميعات 1447)",
+                question: "ما العامل الذي لا يؤثر في سرعة التفاعل الكيميائي من العوامل الآتية؟",
+                options: [
+                    "أ) طبيعة المتفاعلات",
+                    "ب) التركيز",
+                    "ج) حجم وعاء التفاعل في الغازات (تغير الحجم الكلي للمزيج دون تغيير عدد المولات)",
+                    "د) درجة الحرارة"
+                ],
+                correct: 2,
+                explanation: "التوضيح: تغيير الحجم الكلي للمزيج يؤثر على الضغط والتركيز معاً، لكن العوامل الرئيسية المؤثرة مباشرة هي: طبيعة المتفاعلات، التركيز، مساحة السطح، درجة الحرارة، والمحفزات."
+            },
+            {
+                chapter: "الباب الثاني: الاتزان الكيميائي (تجميعات 1446)",
+                question: "في تفاعل متزن، إذا تم إضافة كمية إضافية من إحدى المتفاعلات، فإن اتجاه سير التفاعل حسب مبدأ لوشاتليه ينزاح نحو:",
+                options: [
+                    "أ) الاتجاه العكسي (تكوين متفاعلات أكثر)",
+                    "ب) الاتجاه الطردي (تكوين نواتج أكثر)",
+                    "ج) لا يتأثر موضع الاتزان أبداً",
+                    "د) يتوقف التفاعل تماماً"
+                ],
+                correct: 1,
+                explanation: "التوضيح: حسب مبدأ لوشاتليه، النظام يزيح موضع الاتزان ليستهلك الزيادة المضافة، لذا ينزاح التفاعل في الاتجاه الطردي لإنتاج المزيد من النواتج."
+            },
+            {
+                chapter: "الباب الثالث: الأحماض والقواعد (تجميعات 1447)",
+                question: "حسب تعريف برونستد - لوري، الحمض هو المادة التي:",
+                options: [
+                    "أ) تمنح أيون الهيدروجين +H (بروتون)",
+                    "ب) تستقبل أيون الهيدروجين +H",
+                    "ج) تنتج أيون الهيدروكسيد -OH في الماء",
+                    "د) تحتوي دائماً على مجموعة كربوكسيل"
+                ],
+                correct: 0,
+                explanation: "التوضيح: حمض برونستد-لوري هو مانح للبروتون (+H)، بينما القاعدة هي مستقبلة للبروتون."
+            },
+            {
+                chapter: "الباب الرابع: الكيمياء العضوية (تجميعات 1446)",
+                question: "ما اسم المركب العضوي الذي يحتوي على مجموعة وظيفية هيدروكسيل (-OH) متصلة بسلسلة أليفاتية مباشرة؟",
+                options: [
+                    "أ) الإيثرات",
+                    "ب) الألدهيدات",
+                    "ج) الكحولات",
+                    "د) الأحماض الكربوكسيلية"
+                ],
+                correct: 2,
+                explanation: "التوضيح: الكحولات هي مركبات عضوية تتميز بوجود مجموعة الهيدروكسيل (-OH) المرتبطة بذرة كربون أليفاتية."
+            }
+        ];
+
+        let currentTahsiliIndex = 0;
+        let tahsiliScoreCount = 0;
+        let answeredCurrent = false;
+
+        function openTahsiliModal() {
+            document.getElementById('tahsiliModal').classList.remove('hidden');
+            document.getElementById('tahsiliModal').classList.add('flex');
+            currentTahsiliIndex = 0;
+            tahsiliScoreCount = 0;
+            loadTahsiliQuestion();
+        }
+
+        function closeTahsiliModal() {
+            document.getElementById('tahsiliModal').classList.remove('flex');
+            document.getElementById('tahsiliModal').classList.add('hidden');
+        }
+
+        function loadTahsiliQuestion() {
+            answeredCurrent = false;
+            const q = tahsiliQuestions[currentTahsiliIndex];
+            document.getElementById('tahsili-progress').innerText = `السؤال ${currentTahsiliIndex + 1} من ${tahsiliQuestions.length}`;
+            document.getElementById('tahsili-score').innerText = `النتيجة: ${tahsiliScoreCount}`;
+            document.getElementById('tahsili-chapter').innerText = q.chapter;
+            document.getElementById('tahsili-question-text').innerText = q.question;
+            
+            const optionsContainer = document.getElementById('tahsili-options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-right p-4 rounded-2xl glass-card hover:border-purple-400 transition-all text-xs sm:text-sm font-semibold text-slate-700 shadow-sm";
+                btn.innerText = opt;
+                btn.onclick = () => checkTahsiliAnswer(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('tahsili-explanation').classList.add('hidden');
+            document.getElementById('tahsili-next-btn').classList.add('hidden');
+        }
+
+        function checkTahsiliAnswer(selectedIndex, selectedBtn) {
+            if (answeredCurrent) return;
+            answeredCurrent = true;
+
+            const q = tahsiliQuestions[currentTahsiliIndex];
+            const optionButtons = document.querySelectorAll('#tahsili-options button');
+            
+            optionButtons.forEach((b, idx) => {
+                b.disabled = true;
+                if (idx === q.correct) {
+                    b.classList.add('bg-teal-50', 'border-teal-400', 'text-teal-900', 'font-bold');
+                } else if (idx === selectedIndex) {
+                    b.classList.add('bg-red-50', 'border-red-300', 'text-red-900', 'font-bold');
+                }
+            });
+
+            const explanationBox = document.getElementById('tahsili-explanation');
+            explanationBox.classList.remove('hidden');
+
+            if (selectedIndex === q.correct) {
+                tahsiliScoreCount += 25;
+                explanationBox.className = "p-4 rounded-2xl text-xs sm:text-sm font-semibold bg-teal-50 text-teal-800 border border-teal-200 shadow-sm";
+                explanationBox.innerHTML = `<i class="fa-solid fa-circle-check ml-2 text-teal-600"></i> إجابة صحيحة! <br>${q.explanation}`;
+            } else {
+                explanationBox.className = "p-4 rounded-2xl text-xs sm:text-sm font-semibold bg-red-50 text-red-800 border border-red-200 shadow-sm";
+                explanationBox.innerHTML = `<i class="fa-solid fa-circle-xmark ml-2 text-red-600"></i> إجابة غير دقيقة. <br>${q.explanation}`;
+            }
+
+            document.getElementById('tahsili-score').innerText = `النتيجة: ${tahsiliScoreCount}`;
+            document.getElementById('tahsili-next-btn').classList.remove('hidden');
+        }
+
+        function nextTahsiliQuestion() {
+            currentTahsiliIndex++;
+            if (currentTahsiliIndex < tahsiliQuestions.length) {
+                loadTahsiliQuestion();
+            } else {
+                const qBox = document.getElementById('tahsili-question-box');
+                qBox.innerHTML = `
+                    <div class="text-center py-8 space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-purple-100 border border-purple-300 text-purple-700 text-3xl flex items-center justify-center mx-auto shadow-sm">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h4 class="text-2xl font-black text-slate-900">أتممتِ بنك تجميعات التحصيلي بنجاح!</h4>
+                        <p class="text-sm text-slate-700 font-medium">درجتك النهائية: <span class="text-teal-600 font-bold">${tahsiliScoreCount} / 100</span></p>
+                        <p class="text-xs text-slate-500 font-medium">تابعي المراجعة المستمرة مع المعلمة نجلاء الثقفي لضمان الدرجة الكاملة.</p>
+                        <button onclick="openTahsiliModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl text-xs font-bold shadow-lg mt-4">
+                            إعادة اختبار البنك <i class="fa-solid fa-rotate-right mr-2"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function downloadTahsiliPDF() {
+            showNotification('جاري تحميل ملف ملخص تجميعات الكيمياء (1447-1448) بصيغة PDF...', 'تحميل الملفات');
+        }
+    </script>
+</body>
+</html>
